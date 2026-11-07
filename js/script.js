@@ -13,15 +13,16 @@ async function getGiphyURLs() {
     // reads the Response object body and parses it as JSON into a JS object
     const data = await response.json();
     console.log(data);
-    // reads the data JSON and stores the image URLs in a list
+    // reads the data JSON and interatively stores the image URL to this list
     const images = [];
-    for (let i = 0; i <= 25; i++) {
-        images[i] = data[0].images.fixed_height_small.url
+    for (let i = 0; i <= 24; i++) {
+        images.push(data.data[i].images.fixed_height_small.url);
+        // console.log(images);
     }
     // preview the images array in the console
     console.log(images);
 
-    return images
+    return images;
 }
 
 const gifContainer = document.querySelector("#gif-container");
