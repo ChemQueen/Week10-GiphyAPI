@@ -14,24 +14,27 @@ async function getGiphyURLs() {
     const data = await response.json();
     console.log(data);
     // reads the data JSON and interatively stores the image URL to this list
-    const images = [];
+    const imagesURLs = [];
     for (let i = 0; i <= 24; i++) {
-        images.push(data.data[i].images.fixed_height_small.url);
+        imagesURLs.push(data.data[i].images.fixed_height_small.url);
         // console.log(images);
     }
     // preview the images array in the console
-    console.log(images);
+    console.log(imagesURLs);
 
-    return images;
+    return imagesURLs;
 }
 
 const gifContainer = document.querySelector("#gif-container");
 
 const button = document.querySelector("#fetch-gif-btn");
 
-button.addEventListener("click", function() {
-    getGiphyURLs();
-    gifContainer.innerHTML += `<img src="${IMAGE_URL_GOES_HERE}" class="col-3 mb-3">`;
+// event handler calls async function so it can use await
+button.addEventListener("click", async function() {
+    // calls the function and pauses until the server responds
+    const images = await getGiphyURLs();
+    for (let i = 0; i <= 24; i++) {
+        gifContainer.innerHTML += `<img src="${images[i]}" class="col-3 mb-3">`;
+    };
 });
-
 
