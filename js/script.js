@@ -35,8 +35,13 @@ button.addEventListener("click", async function() {
     console.log(searchInput.value);
     // calls the function and pauses until the server responds
     const images = await getGiphyURLs();
+    // clears the previous GIF display
+    gifContainer.innerHTML = "";
     for (let i = 0; i < images.length; i++) {
         gifContainer.innerHTML += `<img src="${images[i]}" class="col-3 mb-3">`;
     };
+    // clears the search term box
+    searchInput.value = "";
 });
+
 
